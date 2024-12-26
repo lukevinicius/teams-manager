@@ -3,15 +3,14 @@ import { CreatePlayerForm } from './create-player'
 import { PlayersList } from './players-list'
 
 interface GroupDetailsPageProps {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
 export default async function GroupDetailsPage({
   params,
 }: GroupDetailsPageProps) {
-  const { group, error } = await getGroup({ groupId: params.id })
+  const groupId = (await params).id
+  const { group, error } = await getGroup({ groupId })
 
   return (
     <div className="flex min-h-screen items-center justify-center">

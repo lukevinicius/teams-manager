@@ -58,5 +58,5 @@ export default {
       },
     },
   },
-  plugins: [await import('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config
