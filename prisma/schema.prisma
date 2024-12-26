@@ -17,7 +17,7 @@ model Groups {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
 
-  Players Players[]
+  players Players[]
 
   @@map("groups")
 }
@@ -28,8 +28,8 @@ model Players {
   stars Int
   king  Boolean
 
-  group    Groups @relation(fields: [groupsId], references: [id])
-  groupsId String @db.ObjectId
+  group   Groups @relation(fields: [groupId], references: [id])
+  groupId String @db.ObjectId
 
   @@map("players")
 }

@@ -4,11 +4,15 @@ import { useState, useTransition } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Loader2, Users } from 'lucide-react'
-import { createGroup } from '@/actions/groups/create-group'
+import { Loader2, User } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
+import { addPlayer } from '@/actions/players/add-player'
 
-export function CreateGroupForm() {
+interface CreatePlayerFormProps {
+  groupId: string
+}
+
+export function CreatePlayerForm({ groupId }: CreatePlayerFormProps) {
   const [fieldErrors, setFieldErrors] = useState<string[]>([])
   const { toast } = useToast()
   const [isPending, startTransition] = useTransition()
@@ -16,7 +20,8 @@ export function CreateGroupForm() {
   async function handleCreateGroup(formData: FormData) {
     await setFieldErrors([])
     startTransition(async () => {
-      const { error, formErrors } = await createGroup(formData)
+      formData.append('groupId', groupId)
+      const { error, formErrors } = await addPlayer(formData)
 
       if (formErrors) {
         setFieldErrors(formErrors)
@@ -36,13 +41,13 @@ export function CreateGroupForm() {
     <form action={handleCreateGroup} className="flex space-x-2">
       <div className="space-y-1">
         <Input
-          placeholder="Nome do grupo"
+          placeholder="Nome do jogador"
           name="name"
           className="text-zinc-900 focus:outline-none focus:ring-2 focus:ring-sky-600"
         />
         {fieldErrors.includes('name') && (
           <p className="text-left text-xs text-red-600">
-            Nome do grupo é obrigatório
+            Nome do jogador é obrigatório
           </p>
         )}
       </div>
@@ -51,7 +56,7 @@ export function CreateGroupForm() {
           <Loader2 className="h-6 w-6 animate-spin" />
         ) : (
           <>
-            <Users className="h-6 w-6 cursor-pointer" /> Adicionar grupo
+            <User className="h-6 w-6 cursor-pointer" /> Adicionar jogador
           </>
         )}
       </Button>
