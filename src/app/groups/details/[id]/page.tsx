@@ -13,9 +13,8 @@ export default async function GroupDetailsPage({
   const { group, error } = await getGroup({ groupId })
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex h-full items-center justify-center">
       <div className="space-y-4 text-center text-zinc-200">
-        <p className="text-2xl font-semibold">Team Fast</p>
         {error && (
           <>
             <p>{error}</p>

@@ -10,7 +10,10 @@ export async function GroupsList() {
       <div className="space-y-2">
         {groups.length > 0 ? (
           groups.map((group) => (
-            <div key={group.id} className="flex items-center justify-between">
+            <div
+              key={group.id}
+              className="flex items-center justify-between rounded-md border-[1px] border-dashed border-zinc-600 p-3"
+            >
               <Link
                 href={`/groups/details/${group.id}`}
                 key={group.id}
@@ -18,8 +21,9 @@ export async function GroupsList() {
               >
                 <p>{group.name}</p>
               </Link>
-
-              <DeleteGroupButton groupId={group.id} />
+              <div className="flex items-center space-x-2">
+                <DeleteGroupButton groupId={group.id} />
+              </div>
             </div>
           ))
         ) : (
